@@ -1,5 +1,5 @@
 import js from "@eslint/js";
-import eslintConfigPrettier from "eslint-config-prettier/flat";
+import prettierConfig from "eslint-config-prettier/flat";
 import jsxA11y from "eslint-plugin-jsx-a11y";
 import react from "eslint-plugin-react";
 import reactHooks from "eslint-plugin-react-hooks";
@@ -28,5 +28,5 @@ export default tseslint.config([
       "react/self-closing-comp": "warn",
     },
   },
-  eslintConfigPrettier,
+  prettierConfig,
 ]);
