@@ -1,5 +1,5 @@
-import { test, expect } from "@playwright/test";
-import type { TdObject, TdError } from "tdweb";
+import { expect, test } from "@playwright/test";
+import type { TdError, TdObject } from "tdweb";
 
 function isTdError(result: TdObject | TdError): result is TdError {
   return result["@type"] === "error";
