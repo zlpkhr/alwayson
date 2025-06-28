@@ -6,7 +6,7 @@ type GetChatOpts = {
   limit?: number;
 };
 
-export class Telegram {
+export default class Telegram {
   #tdClient: TdClient;
 
   constructor(tdClient: TdClient) {

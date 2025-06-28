@@ -1,5 +1,5 @@
+import Telegram from "#lib/telegram";
 import { match } from "ts-pattern";
-import { Telegram } from "./lib/telegram/telegram";
 
 const tdClient = new tdweb.default({
   jsLogVerbosityLevel: "error",
