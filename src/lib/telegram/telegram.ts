@@ -6,6 +6,14 @@ type GetChatOpts = {
   limit?: number;
 };
 
+type GetChatHistoryOpts = {
+  chatId: number;
+  fromMessageId: number;
+  offset?: number;
+  limit?: number;
+  onlyLocal?: boolean;
+};
+
 export default class Telegram {
   #tdClient: TdClient;
 
@@ -23,6 +31,27 @@ export default class Telegram {
     });
 
     return chatsSchema.parseAsync(result);
+  }
+
+  async getChatHistory(opts: GetChatHistoryOpts) {
+    const {
+      chatId,
+      fromMessageId,
+      offset = 0,
+      limit = 10,
+      onlyLocal = false,
+    } = opts;
+
+    const result = await this.#send({
+      "@type": "getChatHistory",
+      chat_id: chatId,
+      from_message_id: fromMessageId,
+      offset,
+      limit,
+      only_local: onlyLocal,
+    });
+
+    return result;
   }
 
   async #send(query: TdObject): Promise<TdObject> {

@@ -44,13 +44,9 @@ const tdClient = new tdweb.default({
           const { chatIDs } = await telegram.getChats({ limit: 100 });
 
           for (const chatId of chatIDs) {
-            const chat = await tdClient.send({
-              "@type": "getChatHistory",
-              chat_id: chatId,
-              from_message_id: 0,
-              offset: -1,
-              limit: 20,
-              only_local: false,
+            const chat = await telegram.getChatHistory({
+              chatId,
+              fromMessageId: 0,
             });
 
             console.log(chat);
