@@ -87,18 +87,15 @@ export const messagePaymentRefunded = makePlaceholder("messagePaymentRefunded");
 export const messagePaymentSuccessful = makePlaceholder("messagePaymentSuccessful");
 export const messagePaymentSuccessfulBot = makePlaceholder("messagePaymentSuccessfulBot");
 export const messagePinMessage = makePlaceholder("messagePinMessage");
-export const messagePoll = makePlaceholder("messagePoll");
 export const messagePremiumGiftCode = makePlaceholder("messagePremiumGiftCode");
 export const messageProximityAlertTriggered = makePlaceholder("messageProximityAlertTriggered");
 export const messageRefundedUpgradedGift = makePlaceholder("messageRefundedUpgradedGift");
 export const messageScreenshotTaken = makePlaceholder("messageScreenshotTaken");
-export const messageSticker = makePlaceholder("messageSticker");
 export const messageStory = makePlaceholder("messageStory");
 export const messageSuggestProfilePhoto = makePlaceholder("messageSuggestProfilePhoto");
 export const messageSupergroupChatCreate = makePlaceholder("messageSupergroupChatCreate");
 export const messageUpgradedGift = makePlaceholder("messageUpgradedGift");
 export const messageUsersShared = makePlaceholder("messageUsersShared");
-export const messageVenue = makePlaceholder("messageVenue");
 export const messageVideoChatEnded = makePlaceholder("messageVideoChatEnded");
 export const messageVideoChatScheduled = makePlaceholder("messageVideoChatScheduled");
 export const messageVideoChatStarted = makePlaceholder("messageVideoChatStarted");
@@ -168,18 +165,15 @@ export const messageContent = z.discriminatedUnion("@type", [
   messagePaymentSuccessful,
   messagePaymentSuccessfulBot,
   messagePinMessage,
-  messagePoll,
   messagePremiumGiftCode,
   messageProximityAlertTriggered,
   messageRefundedUpgradedGift,
   messageScreenshotTaken,
-  messageSticker,
   messageStory,
   messageSuggestProfilePhoto,
   messageSupergroupChatCreate,
   messageUpgradedGift,
   messageUsersShared,
-  messageVenue,
   messageVideoChatEnded,
   messageVideoChatScheduled,
   messageVideoChatStarted,
@@ -193,8 +187,6 @@ export const messageContent = z.discriminatedUnion("@type", [
   messageAnimation,
   messageAudio,
   // concrete misc types
-  messagePoll,
-  messageContact,
   messageVideoChatEnded,
   messageVideoChatScheduled,
   messageVideoChatStarted,
