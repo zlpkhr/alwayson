@@ -80,6 +80,9 @@ function useChats() {
 function useMessages(chatId: number, limit: number = 10) {
   return useQuery({
     queryKey: ["messages", chatId, limit],
-    queryFn: () => telegram.getMessages({ chatId, limit }).then((messages)=>messages.reverse()),
+    queryFn: () =>
+      telegram
+        .getMessages({ chatId, limit })
+        .then((messages) => messages.reverse()),
   });
 }
