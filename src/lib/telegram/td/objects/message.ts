@@ -7,6 +7,7 @@ import { messageSchedulingState } from "./messageSchedulingState";
 import { messageSender } from "./messageSender";
 import { messageSendingState } from "./messageSendingState";
 import { unreadReaction } from "./unreadReaction";
+import { messageContent } from "./messageContent";
 
 export const message = z.object({
   "@type": z.literal("message"),
@@ -30,6 +31,7 @@ export const message = z.object({
   interaction_info: messageInteractionInfo.optional(),
   unread_reactions: z.array(unreadReaction),
   fact_check: factCheck.optional(),
+  content: messageContent,
 });
 
 export type Message = z.infer<typeof message>;
