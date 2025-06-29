@@ -1,4 +1,4 @@
-import { z } from "zod";
+import { z } from "zod/v4";
 import { formattedText } from "./formattedText";
 
 // https://core.telegram.org/tdlib/docs/classtd_1_1td__api_1_1message_text.html
