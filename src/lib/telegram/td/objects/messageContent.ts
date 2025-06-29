@@ -23,10 +23,6 @@ const makePlaceholder = (type: string) =>
   z.object({ "@type": z.literal(type) }).passthrough();
 
 export const messageAnimatedEmoji = makePlaceholder("messageAnimatedEmoji");
-export const messageAnimation = makePlaceholder("messageAnimation");
-export const messageAudio = makePlaceholder("messageAudio");
-export const messageVideo = makePlaceholder("messageVideo");
-export const messagePhoto = makePlaceholder("messagePhoto");
 export const messageBasicGroupChatCreate = makePlaceholder("messageBasicGroupChatCreate");
 export const messageBotWriteAccessAllowed = makePlaceholder("messageBotWriteAccessAllowed");
 export const messageCall = makePlaceholder("messageCall");
@@ -108,10 +104,6 @@ export const messageContent = z.discriminatedUnion("@type", [
   messageText,
   messageUnsupported,
   messageAnimatedEmoji,
-  messageAnimation,
-  messageAudio,
-  messageVideo,
-  messagePhoto,
   messageBasicGroupChatCreate,
   messageBotWriteAccessAllowed,
   messageCall,
