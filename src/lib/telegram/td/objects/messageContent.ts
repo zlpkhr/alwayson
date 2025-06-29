@@ -7,6 +7,12 @@ import { messageVideo } from "./messageContent/messageVideo";
 import { messageAnimation } from "./messageContent/messageAnimation";
 import { messageAudio } from "./messageContent/messageAudio";
 
+// Additional concrete message content schemas
+import { messageSticker } from "./messageContent/messageSticker";
+import { messagePoll } from "./messageContent/messagePoll";
+import { messageContact } from "./messageContent/messageContact";
+import { messageVenue } from "./messageContent/messageVenue";
+
 // https://core.telegram.org/tdlib/docs/classtd_1_1td__api_1_1message_text.html
 export const messageText = z.object({
   "@type": z.literal("messageText"),
@@ -46,7 +52,6 @@ export const messageChatSetTheme = makePlaceholder("messageChatSetTheme");
 export const messageChatShared = makePlaceholder("messageChatShared");
 export const messageChatUpgradeFrom = makePlaceholder("messageChatUpgradeFrom");
 export const messageChatUpgradeTo = makePlaceholder("messageChatUpgradeTo");
-export const messageContact = makePlaceholder("messageContact");
 export const messageContactRegistered = makePlaceholder("messageContactRegistered");
 export const messageCustomServiceAction = makePlaceholder("messageCustomServiceAction");
 export const messageDice = makePlaceholder("messageDice");
@@ -187,8 +192,15 @@ export const messageContent = z.discriminatedUnion("@type", [
   messageVideo,
   messageAnimation,
   messageAudio,
-  // placeholders still to implement
-  messageSticker,
+  // concrete misc types
+  messagePoll,
+  messageContact,
+  messageVideoChatEnded,
+  messageVideoChatScheduled,
+  messageVideoChatStarted,
+  messageVideoNote,
+  messageVoiceNote,
+  messageWebAppDataSent,
 ]);
 
 // Utility aggregate TypeScript type
