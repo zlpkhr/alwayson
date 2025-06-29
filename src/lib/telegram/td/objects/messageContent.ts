@@ -1,6 +1,12 @@
 import { z } from "zod/v4";
 import { formattedText } from "./formattedText";
 
+// Rich-media message schemas implemented in dedicated files
+import { messagePhoto } from "./messageContent/messagePhoto";
+import { messageVideo } from "./messageContent/messageVideo";
+import { messageAnimation } from "./messageContent/messageAnimation";
+import { messageAudio } from "./messageContent/messageAudio";
+
 // https://core.telegram.org/tdlib/docs/classtd_1_1td__api_1_1message_text.html
 export const messageText = z.object({
   "@type": z.literal("messageText"),
@@ -176,6 +182,13 @@ export const messageContent = z.discriminatedUnion("@type", [
   messageVoiceNote,
   messageWebAppDataReceived,
   messageWebAppDataSent,
+  // concrete rich-media types
+  messagePhoto,
+  messageVideo,
+  messageAnimation,
+  messageAudio,
+  // placeholders still to implement
+  messageSticker,
 ]);
 
 // Utility aggregate TypeScript type
@@ -183,13 +196,8 @@ export type MessageContent = z.infer<typeof messageContent>;
 
 export type MessageText = z.infer<typeof messageText>;
 
-// Rich media message schemas (defined in dedicated files)
-import { messagePhoto } from "./messageContent/messagePhoto";
-import { messageVideo } from "./messageContent/messageVideo";
-import { messageAnimation } from "./messageContent/messageAnimation";
-import { messageAudio } from "./messageContent/messageAudio";
-
 export type MessageUnsupported = z.infer<typeof messageUnsupported>;
 
-// OLD in-file schema kept only for compatibility (will be removed)
-/* const oldMessageVideo = z.object({
+// ---------------------------------------------------------------------------
+//  End of file
+// ---------------------------------------------------------------------------
