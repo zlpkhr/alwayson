@@ -26,7 +26,8 @@
     /* Paths */
     "paths": {
       "#lib/*": ["./src/lib/*"],
-      "#lib/telegram": ["./src/lib/telegram/telegram"]
+      "#lib/telegram": ["./src/lib/telegram/telegram"],
+      "zod/v4": ["./src/zod-v4.ts"]
     }
   },
   "include": ["src", "tests"]

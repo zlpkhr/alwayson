@@ -1,8 +1,7 @@
 declare module "zod/v4" {
-  import * as base from "zod";
-  const extended: typeof base.z & typeof base & {
-    /** Shortcut for z.number().int() */
-    int: () => ReturnType<typeof base.z.number>;
-  };
-  export = extended;
+  export * from "zod";
+  import * as z from "zod";
+  // Helper added in shim
+  export function int(): z.ZodNumber;
+  export default z;
 }
