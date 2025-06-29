@@ -9,6 +9,7 @@ export const messageReplyToMessage = z.object({
   quote: textQuote.optional(),
   origin: messageOrigin.optional(),
   origin_send_date: z.int(),
+  content: z.unknown().optional(),
 });
 
 export type MessageReplyToMessage = z.infer<typeof messageReplyToMessage>;
