@@ -23,24 +23,10 @@ const makePlaceholder = (type: string) =>
   z.object({ "@type": z.literal(type) }).passthrough();
 
 export const messageAnimatedEmoji = makePlaceholder("messageAnimatedEmoji");
-export const messageAnimation = z.object({
-  "@type": z.literal("messageAnimation"),
-  /** The animation object. */
-  animation: z.unknown(), // TODO: proper animation schema
-  /** Animation caption. */
-  caption: formattedText,
-  /** Show caption above media. */
-  show_caption_above_media: z.boolean().optional(),
-  /** True if animation should be played only once. */
-  is_looped: z.boolean().optional(),
-});
-export const messageAudio = z.object({
-  "@type": z.literal("messageAudio"),
-  /** The audio description. */
-  audio: z.unknown(), // TODO: proper audio schema
-  /** Audio caption. */
-  caption: formattedText,
-});
+export const messageAnimation = makePlaceholder("messageAnimation");
+export const messageAudio = makePlaceholder("messageAudio");
+export const messageVideo = makePlaceholder("messageVideo");
+export const messagePhoto = makePlaceholder("messagePhoto");
 export const messageBasicGroupChatCreate = makePlaceholder("messageBasicGroupChatCreate");
 export const messageBotWriteAccessAllowed = makePlaceholder("messageBotWriteAccessAllowed");
 export const messageCall = makePlaceholder("messageCall");
@@ -106,21 +92,6 @@ export const messageSupergroupChatCreate = makePlaceholder("messageSupergroupCha
 export const messageUpgradedGift = makePlaceholder("messageUpgradedGift");
 export const messageUsersShared = makePlaceholder("messageUsersShared");
 export const messageVenue = makePlaceholder("messageVenue");
-export const messageVideo = z.object({
-  "@type": z.literal("messageVideo"),
-  /** The video object. */
-  video: z.unknown(), // TODO: proper video schema
-  /** Video caption. */
-  caption: formattedText,
-  /** Show caption above media. */
-  show_caption_above_media: z.boolean().optional(),
-  /** True if the preview must be covered by spoiler animation. */
-  has_spoiler: z.boolean().optional(),
-  /** True if the video should loop when playing. */
-  is_looped: z.boolean().optional(),
-  /** True if the video must be blurred and shown only while tapped. */
-  is_secret: z.boolean().optional(),
-});
 export const messageVideoChatEnded = makePlaceholder("messageVideoChatEnded");
 export const messageVideoChatScheduled = makePlaceholder("messageVideoChatScheduled");
 export const messageVideoChatStarted = makePlaceholder("messageVideoChatStarted");
@@ -139,6 +110,8 @@ export const messageContent = z.discriminatedUnion("@type", [
   messageAnimatedEmoji,
   messageAnimation,
   messageAudio,
+  messageVideo,
+  messagePhoto,
   messageBasicGroupChatCreate,
   messageBotWriteAccessAllowed,
   messageCall,
@@ -204,7 +177,6 @@ export const messageContent = z.discriminatedUnion("@type", [
   messageUpgradedGift,
   messageUsersShared,
   messageVenue,
-  messageVideo,
   messageVideoChatEnded,
   messageVideoChatScheduled,
   messageVideoChatStarted,
