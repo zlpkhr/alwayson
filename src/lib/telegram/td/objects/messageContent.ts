@@ -93,19 +93,6 @@ export const messagePassportDataSent = makePlaceholder("messagePassportDataSent"
 export const messagePaymentRefunded = makePlaceholder("messagePaymentRefunded");
 export const messagePaymentSuccessful = makePlaceholder("messagePaymentSuccessful");
 export const messagePaymentSuccessfulBot = makePlaceholder("messagePaymentSuccessfulBot");
-export const messagePhoto = z.object({
-  "@type": z.literal("messagePhoto"),
-  /** The photo object (variant list, metadata, etc.). */
-  photo: z.unknown(), // TODO: replace with proper `photo` schema
-  /** Photo caption. */
-  caption: formattedText,
-  /** Show caption above the photo (channels, stories, etc.) */
-  show_caption_above_media: z.boolean().optional(),
-  /** True if the preview must be covered by spoiler animation. */
-  has_spoiler: z.boolean().optional(),
-  /** True if the photo must be blurred and shown only while tapped (secret media). */
-  is_secret: z.boolean().optional(),
-});
 export const messagePinMessage = makePlaceholder("messagePinMessage");
 export const messagePoll = makePlaceholder("messagePoll");
 export const messagePremiumGiftCode = makePlaceholder("messagePremiumGiftCode");
@@ -204,7 +191,6 @@ export const messageContent = z.discriminatedUnion("@type", [
   messagePaymentRefunded,
   messagePaymentSuccessful,
   messagePaymentSuccessfulBot,
-  messagePhoto,
   messagePinMessage,
   messagePoll,
   messagePremiumGiftCode,
@@ -232,4 +218,14 @@ export const messageContent = z.discriminatedUnion("@type", [
 export type MessageContent = z.infer<typeof messageContent>;
 
 export type MessageText = z.infer<typeof messageText>;
+
+// Rich media message schemas (defined in dedicated files)
+import { messagePhoto } from "./messageContent/messagePhoto";
+import { messageVideo } from "./messageContent/messageVideo";
+import { messageAnimation } from "./messageContent/messageAnimation";
+import { messageAudio } from "./messageContent/messageAudio";
+
 export type MessageUnsupported = z.infer<typeof messageUnsupported>;
+
+// OLD in-file schema kept only for compatibility (will be removed)
+/* const oldMessageVideo = z.object({
