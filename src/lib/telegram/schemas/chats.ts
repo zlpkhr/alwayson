@@ -11,3 +11,8 @@ export const chatsSchema = z
       totalCount: value.total_count,
     })),
   );
+
+export const chatSchema = z.object({
+  id: z.number(),
+  title: z.string(),
+});
