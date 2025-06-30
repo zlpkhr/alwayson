@@ -22,12 +22,6 @@
     "erasableSyntaxOnly": true,
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true,
-
-    /* Paths */
-    "paths": {
-      "#lib/*": ["./src/lib/*"],
-      "#lib/telegram": ["./src/lib/telegram/telegram"]
-    }
   },
   "include": ["src", "tests"]
 }
