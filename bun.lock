@@ -776,7 +776,7 @@
 
     "tar": ["tar@7.4.3", "", { "dependencies": { "@isaacs/fs-minipass": "^4.0.0", "chownr": "^3.0.0", "minipass": "^7.1.2", "minizlib": "^3.0.1", "mkdirp": "^3.0.1", "yallist": "^5.0.0" } }, "sha512-5S7Va8hKfV7W5U6g3aYxXmlPoZVAwUMy9AOKyF2fVuZa2UD3qZjg578OrLRt8PcNN1PleVaL/5/yYATNL0ICUw=="],
 
-    "tdtype": ["tdtype@1850.0.0", "", {}, "sha512-+6Komw1Ret3cZhbk0N7L3uq2KXmGn089lKmy6KMWy7goZy6thYLEV3P2TYwOopVZn9+9w6a+fBUl+3S/vRaeKA=="],
+    "tdtype": ["tdtype@1850.0.1", "", {}, "sha512-Q+YYRP/VC9QncIDE0czrvHmXJWV/MQA6DZ7CiwVVhMBZj2VIp9zgWUv619y6MdK5bXzTbHX0qXaVKF8UzLAIYg=="],
 
     "tinyglobby": ["tinyglobby@0.2.14", "", { "dependencies": { "fdir": "^6.4.4", "picomatch": "^4.0.2" } }, "sha512-tX5e7OM1HnYr2+a2C/4V0htOcSQcoSTH9KgJnVvNm5zm/cyEWKJ7j7YutsH9CxMdtOkkLFy2AHrMci9IM8IPZQ=="],
 

@@ -1,4 +1,4 @@
-import type { Fn, Message, Update } from "tdtype";
+import type { Fn, Message, Up, Update } from "tdtype";
 import type TdClient from "tdweb";
 import type { TdError, TdObject } from "tdweb";
 
@@ -73,7 +73,7 @@ export default class TD {
     return result as ReturnType<Fn[K]>;
   }
 
-  async on(handler: (update: Update) => void) {
+  async on<K extends keyof Up>(name: K, handler: (update: Up[K]) => void) {
     await this.#readyPromise;
 
     const controll = new AbortController();
@@ -83,7 +83,9 @@ export default class TD {
       (ev) => {
         const event = ev as CustomEvent<Update>;
 
-        handler(event.detail);
+        if (event.detail["@type"] === name) {
+          handler(event.detail as Up[K]);
+        }
       },
       { signal: controll.signal },
     );

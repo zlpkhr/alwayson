@@ -14,33 +14,31 @@ export const td = new TD({
   apiHash: import.meta.env.VITE_TELEGRAM_API_HASH,
 });
 
-await td.on((update) => {
-  if (update["@type"] === "updateAuthorizationState") {
-    const authState = update.authorization_state;
+await td.on("updateAuthorizationState", (update) => {
+  const authState = update.authorization_state;
 
-    switch (authState["@type"]) {
-      case "authorizationStateWaitPhoneNumber": {
-        const phoneNumber = prompt("Enter your phone number");
-        if (!phoneNumber) return;
+  switch (authState["@type"]) {
+    case "authorizationStateWaitPhoneNumber": {
+      const phoneNumber = prompt("Enter your phone number");
+      if (!phoneNumber) return;
 
-        td.send({
-          "@type": "setAuthenticationPhoneNumber",
-          phone_number: phoneNumber,
-        });
+      td.send({
+        "@type": "setAuthenticationPhoneNumber",
+        phone_number: phoneNumber,
+      });
 
-        break;
-      }
-      case "authorizationStateWaitCode": {
-        const code = prompt("Enter the code");
-        if (!code) return;
+      break;
+    }
+    case "authorizationStateWaitCode": {
+      const code = prompt("Enter the code");
+      if (!code) return;
 
-        td.send({
-          "@type": "checkAuthenticationCode",
-          code,
-        });
+      td.send({
+        "@type": "checkAuthenticationCode",
+        code,
+      });
 
-        break;
-      }
+      break;
     }
   }
 });
