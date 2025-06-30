@@ -13,57 +13,56 @@ export default class TD {
   #client: TdClient;
   #readyPromise: Promise<void>;
 
-  static #createClient(onUpdate: (update: Update) => void) {
+  static #createClient(onUpdate: (update: Update) => void | Promise<void>) {
     return new tdweb.default({
       jsLogVerbosityLevel: "error",
-      onUpdate: onUpdate as (update: TdObject) => void,
+      onUpdate: onUpdate as (update: TdObject) => void | Promise<void>,
     });
   }
 
   constructor(opts: TdOpts) {
     this.#opts = Object.freeze(opts);
     this.#et = new EventTarget();
-    this.#client = TD.#createClient((update) => {
+    this.#readyPromise = new Promise((resolve) => {
+      this.#et.addEventListener("ready", () => {
+        resolve();
+      });
+    });
+    this.#client = TD.#createClient(async (update) => {
       this.#et.dispatchEvent(new CustomEvent("update", { detail: update }));
     });
+    this.on("updateAuthorizationState", async (update) => {
+      if (
+        update.authorization_state["@type"] ===
+        "authorizationStateWaitTdlibParameters"
+      ) {
+        await this.#client.send({
+          "@type": "setTdlibParameters",
+          api_id: parseInt(this.#opts.apiID),
+          api_hash: this.#opts.apiHash,
+          use_test_dc: false,
+          database_directory: "tdlib",
+          files_directory: "",
+          database_encryption_key: "",
+          use_file_database: true,
+          use_chat_info_database: true,
+          use_message_database: true,
+          use_secret_chats: false,
+          system_language_code: "en",
+          device_model: navigator.userAgent,
+          system_version: "",
+          application_version: "0.0.1",
+        });
 
-    this.#readyPromise = new Promise((resolve) => {
-      this.#et.addEventListener("update", async (ev) => {
-        const event = ev as CustomEvent<Update>;
-        const update = event.detail;
-
-        if (
-          update["@type"] === "updateAuthorizationState" &&
-          update.authorization_state["@type"] ===
-            "authorizationStateWaitTdlibParameters"
-        ) {
-          await this.send({
-            "@type": "setTdlibParameters",
-            api_id: parseInt(this.#opts.apiID),
-            api_hash: this.#opts.apiHash,
-            use_test_dc: false,
-            database_directory: "tdlib",
-            files_directory: "",
-            database_encryption_key: "",
-            use_file_database: true,
-            use_chat_info_database: true,
-            use_message_database: true,
-            use_secret_chats: false,
-            system_language_code: "en",
-            device_model: navigator.userAgent,
-            system_version: "",
-            application_version: "0.0.1",
-          });
-
-          resolve();
-        }
-      });
+        this.#et.dispatchEvent(new CustomEvent("ready"));
+      }
     });
   }
 
   async send<K extends keyof Fn>(
     query: { "@type": K } & Parameters<Fn[K]>[0],
   ): Promise<ReturnType<Fn[K]>> {
+    await this.#readyPromise;
     const result = await this.#client.send(query as TdObject);
 
     if (isTdError(result)) {
@@ -73,14 +72,12 @@ export default class TD {
     return result as ReturnType<Fn[K]>;
   }
 
-  async on<K extends keyof Up>(name: K, handler: (update: Up[K]) => void) {
-    await this.#readyPromise;
-
+  on<K extends keyof Up>(name: K, handler: (update: Up[K]) => void) {
     const controll = new AbortController();
 
     this.#et.addEventListener(
       "update",
-      (ev) => {
+      async (ev) => {
         const event = ev as CustomEvent<Update>;
 
         if (event.detail["@type"] === name) {

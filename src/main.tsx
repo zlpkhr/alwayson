@@ -14,7 +14,7 @@ export const td = new TD({
   apiHash: import.meta.env.VITE_TELEGRAM_API_HASH,
 });
 
-await td.on("updateAuthorizationState", (update) => {
+td.on("updateAuthorizationState", (update) => {
   const authState = update.authorization_state;
 
   switch (authState["@type"]) {
